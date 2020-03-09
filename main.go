@@ -1,16 +1,14 @@
 package main
 
 import (
-	"bufio"
 	"context"
 	"flag"
 	"log"
 	"net"
-	"os"
 	"strconv"
 	"time"
 
-	"rfc5424"
+	"github.com/aortizgu/rfc5424"
 
 	"github.com/grandcat/zeroconf"
 )
@@ -66,9 +64,12 @@ func main() {
 		panic(err)
 	}
 	defer conn.Close()
-	reader := bufio.NewReader(os.Stdin)
+	//reader := bufio.NewReader(os.Stdin)
+	i := 1
 	for {
-		text, _ := reader.ReadString('\n')
+		//text, _ := reader.ReadString('\n')
+		text := "mensaje " + strconv.Itoa(i)
+		i = i + 1
 		m := rfc5424.Message{
 			Priority:  rfc5424.Daemon | rfc5424.Info,
 			Timestamp: time.Now(),
@@ -77,5 +78,6 @@ func main() {
 			Message:   []byte(text),
 		}
 		m.WriteTo(conn)
+		time.Sleep(10 * time.Millisecond)
 	}
 }

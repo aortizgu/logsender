@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"github.com/aortizgu/rfc5424"
-
 	"github.com/grandcat/zeroconf"
 )
 
